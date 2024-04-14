@@ -18,7 +18,9 @@ class AuthController {
 
     credentials.password = sha1(credentials.password);
 
-    const userExists = await DBClient.db.collection('users').findOne(credentials);
+    const userExists = await DBClient.db
+      .collection('users')
+      .findOne(credentials);
     if (!userExists) return res.status(401).send({ error: 'Unauthorized' });
 
     const token = uuidv4();
@@ -40,4 +42,4 @@ class AuthController {
   }
 }
 
-export default AuthController;
+module.exports = AuthController;
