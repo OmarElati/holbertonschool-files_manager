@@ -95,6 +95,7 @@ class FilesController {
       parentId: dbFile.parentId,
     });
   }
+
   static async getShow(req, res) {
     const token = req.header('X-Token') || null;
     if (!token) return res.status(401).send({ error: 'Unauthorized' });
