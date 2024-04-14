@@ -7,18 +7,22 @@ const url = `mongodb://${host}:${port}`;
 
 class DBClient {
   constructor() {
-    MongoClient.connect(url, (err, client) => {
-      if (!err) {
-        this.db = client.db(database);
-      } else {
-        this.db = false;
-      }
-    });
+    this.connect();
+  }
+
+  async connect() {
+    try {
+      const client = await MongoClient.connect(url, { useUnifiedTopology: true });
+      this.db = client.db(database);
+      console.log('Connected to MongoDB');
+    } catch (error) {
+      console.error('Error connecting to MongoDB:', error);
+      process.exit(1);
+    }
   }
 
   isAlive() {
-    if (this.db) return true;
-    return false;
+    return !!this.db;
   }
 
   async nbUsers() {
@@ -31,4 +35,4 @@ class DBClient {
 }
 
 const dbClient = new DBClient();
-export default dbClient;
+module.exports = dbClient;
