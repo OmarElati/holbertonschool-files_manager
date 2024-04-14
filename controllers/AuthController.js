@@ -14,7 +14,8 @@ class AuthController {
       password: buff.toString('utf-8').split(':')[1],
     };
 
-    if (!credentials.email || !credentials.password) return res.status(401).send({ error: 'Unauthorized' });
+    if (!credentials.email || !credentials.password)
+    return res.status(401).send({ error: 'Unauthorized' });
 
     credentials.password = sha1(credentials.password);
 

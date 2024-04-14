@@ -1,15 +1,15 @@
 const { MongoClient } = require('mongodb');
 
-const dbHost = process.env.DB_HOST || 'localhost';
-const dbPort = process.env.DB_PORT || 27017;
-const dbName = process.env.DB_DATABASE || 'files_manager';
-const dbUrl = `mongodb://${dbHost}:${dbPort}`;
+const host = process.env.DB_HOST || 'localhost';
+const port = process.env.DB_PORT || 27017;
+const database = process.env.DB_DATABASE || 'files_manager';
+const url = `mongodb://${host}:${port}`;
 
 class DBClient {
   constructor() {
-    MongoClient.connect(dbUrl, (err, client) => {
+    MongoClient.connect(url, (err, client) => {
       if (!err) {
-        this.db = client.db(dbName);
+        this.db = client.db(database);
       } else {
         this.db = false;
       }
@@ -17,16 +17,15 @@ class DBClient {
   }
 
   isAlive() {
-    return !!this.db;
+    if (this.db) return true;
+    return false;
   }
 
   async nbUsers() {
-    if (!this.db) return 0;
     return this.db.collection('users').countDocuments();
   }
 
   async nbFiles() {
-    if (!this.db) return 0;
     return this.db.collection('files').countDocuments();
   }
 }
