@@ -624,3 +624,7 @@ Update the file  `worker.js`:
     -   Print in the console  `Welcome <email>!`
 
 In real life, you can use a third party service like  [Mailgun](https://intranet.hbtn.io/rltoken/Ea0nfbnTWfFzaQVqT55kQQ "Mailgun")  to send real email. These API are slow, (sending via SMTP is worst!) and sending emails via a background job is important to optimize API endpoint.
+
+### Project authors
+
+OmarElati
